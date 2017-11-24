@@ -5,16 +5,16 @@ FROM node:8-alpine as builder
 
 WORKDIR /build
 COPY ./package.json .
-COPY ./package-lock.json .
+#COPY ./package-lock.json .
 RUN npm install
 
+COPY ./src ./src
+COPY ./backpack.config.js ./backpack.config.js
+COPY ./.babelrc ./.babelrc
+RUN npm run container:prod
 
 FROM node:8-alpine
 
 WORKDIR /app
-COPY --from=builder /build/node_modules ./node_modules/
-COPY ./src ./src
-COPY ./backpack.config.js ./backpack.config.js
-COPY ./.babelrc ./.babelrc
-
-CMD [ "node ./build/index.js" ]
+COPY --from=builder /build/dist/index ./index.js
+CMD [ "node ./index.js" ]
