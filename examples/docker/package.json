@@ -2,7 +2,9 @@
   "name": "your-project",
   "author": {
     "name": "you",
-    "email: "you@foo.com",
+    "email: "<you@foo.com>",
+  },
+  "config": {
     "dockerhub": "you_dockerhub_username"
   },
   "license": "MIT",
@@ -22,10 +24,10 @@
     
     "// docker release commands": "",
     "docker:build:prod": "npx npm-run-all docker:build:prod:ver docker:build:prod:latest",
-    "docker:build:prod:ver": "npx cross-var docker build -t $npm_package_author_dockerhub/$npm_package_name:$npm_package_version",
-    "docker:build:prod:as-latest": "npx cross-var docker tag $npm_package_author_dockerhub/$npm_package_name:$npm_package_version $npm_package_author_dockerhub/$npm_package_name:latest",
-    "docker:push:ver": "npx cross-var docker push $npm_package_author_dockerhub/$npm_package_name:$npm_package_version",
-    "docker:push:latest": "npx cross-var docker push $npm_package_author_dockerhub/$npm_package_name:latest",
+    "docker:build:prod:ver": "npx cross-var docker build -t $npm_package_config_dockerhub/$npm_package_name:$npm_package_version",
+    "docker:build:prod:as-latest": "npx cross-var docker tag $npm_package_config_dockerhub/$npm_package_name:$npm_package_version $npm_package_config_dockerhub/$npm_package_name:latest",
+    "docker:push:ver": "npx cross-var docker push $npm_package_config_dockerhub/$npm_package_name:$npm_package_version",
+    "docker:push:latest": "npx cross-var docker push $npm_package_config_dockerhub/$npm_package_name:latest",
     "docker:release": "npx npm-run-all docker:build:prod docker:build:push:ver docker:build:push:latest",
     
     "// project release": "",
