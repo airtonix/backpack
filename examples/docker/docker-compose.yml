@@ -21,4 +21,3 @@ services:
     - "./src:/app/src"
     - "./backpack.config.js:/app/backpack.config.js"
     - "./package.json:/app/package.json"
-    - "./package-lock.json:/app/package-lock.json"
