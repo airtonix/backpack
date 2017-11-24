@@ -1,0 +1,40 @@
+{
+  "name": "your-project",
+  "author": {
+    "name": "you",
+    "email: "you@foo.com",
+    "dockerhub": "you_dockerhub_username"
+  },
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "// workstation commands": "",
+    "dev": "npm run docker:run -- npm run container:dev",
+    "prod": "npm run docker:run -- npm run container:prod",
+
+    "// container commands": "",
+    "container:dev": "backpack",
+    "container:prod": "backpack build",
+    "docker:run": "docker-compose run --rm --service-ports dev",
+    "docker:shell": "npm run docker:run /bin/sh",
+    "docker:build:dev": "docker-compose build dev",
+    
+    "// docker release commands": "",
+    "docker:build:prod": "npx npm-run-all docker:build:prod:ver docker:build:prod:latest",
+    "docker:build:prod:ver": "npx cross-var docker build -t $npm_package_author_dockerhub/$npm_package_name:$npm_package_version",
+    "docker:build:prod:as-latest": "npx cross-var docker tag $npm_package_author_dockerhub/$npm_package_name:$npm_package_version $npm_package_author_dockerhub/$npm_package_name:latest",
+    "docker:push:ver": "npx cross-var docker push $npm_package_author_dockerhub/$npm_package_name:$npm_package_version",
+    "docker:push:latest": "npx cross-var docker push $npm_package_author_dockerhub/$npm_package_name:latest",
+    "docker:release": "npx npm-run-all docker:build:prod docker:build:push:ver docker:build:push:latest",
+    
+    "// project release": "",
+    "postversion": "npx npm-run-all docker:release"
+  },
+  "dependencies": {
+    "backpack-core": "^0.4.3",
+    "nconf": "^0.9.1",
+    "micro": "^9.0.2",
+    "micro-route": "^2.5.0"
+  }
+}
